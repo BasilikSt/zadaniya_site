@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("tasks");
   const toggleBtn = document.getElementById("toggle-actual");
-  if (!container) return;
+  const themeBtn = document.getElementById("theme-toggle");
+
+  if (!container || !toggleBtn) return;
 
   let showOnlyActual = false;
   let allTasks = [];
@@ -38,6 +40,14 @@ document.addEventListener("DOMContentLoaded", () => {
     render();
   });
 
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      themeBtn.textContent =
+        document.body.classList.contains("dark") ? "☀️" : "🌙";
+    });
+  }
+
   fetch("tasks.json")
     .then(r => r.json())
     .then(data => {
@@ -49,12 +59,4 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(() => {
       container.innerHTML = "<p>Пока заданий нет</p>";
     });
-});
-
-const themeBtn = document.getElementById("theme-toggle");
-
-themeBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  themeBtn.textContent =
-    document.body.classList.contains("dark") ? "☀️" : "🌙";
 });
