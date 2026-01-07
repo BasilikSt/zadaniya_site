@@ -2,20 +2,26 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Задания для студентов</title>
+  <title>Учебные задания</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Учебные задания</h1>
-<p class="subtitle">Актуальные работы и материалы</p>
-<button id="toggle-actual" class="filter-btn">
-  Показать только актуальные
-</button>
-<button id="theme-toggle" class="theme-btn">🌙</button>
+  <h1>Учебные задания</h1>
+  <p class="subtitle">Актуальные работы и материалы</p>
+
+  <div class="controls">
+    <button id="toggle-actual" class="filter-btn">
+      Показать только актуальные
+    </button>
+
+    <button id="theme-toggle" class="theme-btn">🌙</button>
+  </div>
+
   <div id="tasks"></div>
 
+  <div class="credit">created by Basilik Stotch</div>
+
   <script src="script.js"></script>
-<div class="credit">created by Basilik Stotch</div>
 </body>
 </html>
