@@ -6,59 +6,86 @@ document.addEventListener("DOMContentLoaded", () => {
   let showOnlyActual = false;
   let allTasks = [];
 
-  const today = new Date().setHours(0,0,0,0);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-  function render() {
+  /* ===== РЕНДЕР ===== */
+  function renderTasks() {
     container.innerHTML = "";
 
-    const list = showOnlyActual
-      ? allTasks.filter(t => new Date(t.date) >= today)
+    const visibleTasks = showOnlyActual
+      ? allTasks.filter(task => new Date(task.date) >= today)
       : allTasks;
 
-    list.forEach((task, i) => {
-      const div = document.createElement("div");
-      div.className = "task";
-      div.style.animationDelay = `${i * 0.05}s`;
+    if (visibleTasks.length === 0) {
+      container.innerHTML = "<p class='empty'>Заданий нет ✨</p>";
+      return;
+    }
 
-      div.innerHTML = `
+    visibleTasks.forEach((task, index) => {
+      const card = document.createElement("div");
+      card.className = "task";
+      card.style.animationDelay = `${index * 0.05}s`;
+
+      const actions = [];
+
+      if (task.file) {
+        actions.push(
+          `<a href="${task.file}" download>📎 Файл</a>`
+        );
+      }
+
+      if (task.link) {
+        actions.push(
+          `<a href="${task.link}" target="_blank">🔗 Ссылка</a>`
+        );
+      }
+
+      card.innerHTML = `
         <div class="task-date">${task.date}</div>
         <div class="task-title">${task.title}</div>
         <div class="task-actions">
-          ${task.file ? `<a href="${task.file}" download>Файл</a>` : ""}
-          ${task.link ? `<a href="${task.link}" target="_blank">Ссылка</a>` : ""}
+          ${actions.join("")}
         </div>
       `;
 
-
-
-      container.appendChild(div);
+      container.appendChild(card);
     });
   }
 
+  /* ===== ФИЛЬТР ===== */
   toggleBtn.addEventListener("click", () => {
     showOnlyActual = !showOnlyActual;
+
     toggleBtn.classList.toggle("active", showOnlyActual);
     toggleBtn.textContent = showOnlyActual
       ? "Показать все задания"
       : "Показать только актуальные";
-    render();
+
+    renderTasks();
   });
 
+  /* ===== ТЕМА ===== */
   themeBtn.addEventListener("click", () => {
     document.body.classList.toggle("dark");
     themeBtn.textContent =
       document.body.classList.contains("dark") ? "☀️" : "🌙";
   });
 
+  /* ===== ЗАГРУЗКА ДАННЫХ ===== */
   fetch("tasks.json")
-    .then(r => r.json())
+    .then(res => {
+      if (!res.ok) throw new Error("fetch error");
+      return res.json();
+    })
     .then(data => {
       allTasks = (data.tasks || []).sort(
         (a, b) => new Date(a.date) - new Date(b.date)
       );
-      render();
+      renderTasks();
     })
-    .catch(() => {
-      container.innerHTML = "<p>Заданий пока нет</p>";
+    .catch(err => {
+      console.error(err);
+      container.innerHTML = "<p class='empty'>Не удалось загрузить задания</p>";
     });
 });
