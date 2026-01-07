@@ -23,8 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
       div.innerHTML = `
         <div class="task-date">${task.date}</div>
         <div class="task-title">${task.title}</div>
-        ${task.file ? `<a href="${task.file}" download>Скачать файл</a>` : ""}
-      `;
+        <div class="task-actions">
+          ${task.file ? `<a href="${task.file}" download>Скачать файл</a>` : ""}
+          ${task.link ? `<a href="${task.link}" target="_blank">Ссылка</a>` : ""}
+        </div>
+
 
       container.appendChild(div);
     });
