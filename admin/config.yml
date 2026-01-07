@@ -4,15 +4,20 @@ backend:
   branch: main
 
 media_folder: "files"
-public_folder: "/files"
+public_folder: "/zadaniya_site/files"
 
 collections:
   - name: "tasks"
     label: "Задания"
-    folder: "tasks"
-    create: true
-    slug: "{{date}}-{{slug}}"
-    fields:
-      - { label: "Дата", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Название задания", name: "title", widget: "string" }
-      - { label: "Файл задания", name: "file", widget: "file" }
+    files:
+      - label: "Список заданий"
+        name: "tasks"
+        file: "tasks.json"
+        fields:
+          - label: "Задания"
+            name: "tasks"
+            widget: "list"
+            fields:
+              - { label: "Дата", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+              - { label: "Название задания", name: "title", widget: "string" }
+              - { label: "Файл", name: "file", widget: "file" }
