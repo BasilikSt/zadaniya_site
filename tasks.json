@@ -1,13 +1,12 @@
 {
   "tasks": [
     {
-      "date": "2026-01-12",
       "title": "Повторение материала",
       "link": "https://disk.yandex.ru/d/_ZQ7Q6XRzQOLyQ"
     },
     {
       "date": "2026-01-15",
-      "title": "Лабораторная работа №2",
+      "title": "Практическая работа",
       "file": "files/lab2.docx",
       "link": "https://lol.com"
     },
