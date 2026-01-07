@@ -2,57 +2,102 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("tasks");
   const themeBtn = document.getElementById("theme-toggle");
 
-  /* ===== РЕНДЕР ===== */
-  function renderTasks(tasks) {
+  if (!container) return;
+
+  /* ================== РЕНДЕР ================== */
+
+  function render(tasks) {
     container.innerHTML = "";
 
     if (!tasks.length) {
-      container.innerHTML = "<p class='empty'>Заданий нет ✨</p>";
+      container.innerHTML = "<p>Заданий пока нет</p>";
       return;
     }
 
-    tasks.forEach((task, index) => {
-      const card = document.createElement("div");
-      card.className = "task";
-      card.style.animationDelay = `${index * 0.05}s`;
+    /* группируем по предметам */
+    const grouped = {};
 
-      let actions = "";
+    tasks.forEach(task => {
+      const subject = task.subject || "Без предмета";
+      if (!grouped[subject]) grouped[subject] = [];
+      grouped[subject].push(task);
+    });
 
-      if (task.file) {
-        actions += `<a href="${task.file}" download>📎 Файл</a>`;
-      }
+    /* рисуем */
+    Object.keys(grouped).forEach(subject => {
+      const section = document.createElement("section");
+      section.className = "subject";
 
-      if (task.link) {
-        actions += `<a href="${task.link}" target="_blank">🔗 Ссылка</a>`;
-      }
-
-      card.innerHTML = `
-        <div class="task-title">${task.title}</div>
-        ${actions ? `<div class="task-actions">${actions}</div>` : ""}
+      section.innerHTML = `
+        <h2 class="subject-title">${subject}</h2>
       `;
 
-      container.appendChild(card);
+      grouped[subject].forEach((task, index) => {
+        const card = document.createElement("div");
+        card.className = "task";
+        card.style.animationDelay = `${index * 0.05}s`;
+
+        const actions = [];
+
+        /* несколько файлов */
+        if (Array.isArray(task.files)) {
+          task.files.forEach(file => {
+            actions.push(`
+              <a href="${file.url}" download>
+                📎 ${file.name || "Файл"}
+              </a>
+            `);
+          });
+        }
+
+        /* ссылка */
+        if (task.link) {
+          actions.push(`
+            <a href="${task.link}" target="_blank">
+              🔗 Ссылка
+            </a>
+          `);
+        }
+
+        card.innerHTML = `
+          <div class="task-title">${task.title}</div>
+          ${
+            actions.length
+              ? `<div class="task-actions">${actions.join("")}</div>`
+              : ""
+          }
+        `;
+
+        section.appendChild(card);
+      });
+
+      container.appendChild(section);
     });
   }
 
-  /* ===== ТЕМА ===== */
-  themeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-    themeBtn.textContent =
-      document.body.classList.contains("dark") ? "☀️" : "🌙";
-  });
+  /* ================== ЗАГРУЗКА ================== */
 
-  /* ===== ЗАГРУЗКА ===== */
   fetch("tasks.json")
     .then(res => {
-      if (!res.ok) throw new Error("fetch error");
+      if (!res.ok) throw new Error("Ошибка загрузки");
       return res.json();
     })
     .then(data => {
-      renderTasks(data.tasks || []);
+      render(data.tasks || []);
     })
-    .catch(() => {
-      container.innerHTML =
-        "<p class='empty'>Не удалось загрузить задания</p>";
+    .catch(err => {
+      console.error(err);
+      container.innerHTML = "<p>Не удалось загрузить задания</p>";
     });
+
+  /* ================== ТЕМА ================== */
+
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      themeBtn.textContent =
+        document.body.classList.contains("dark") ? "☀️" : "🌙";
+    });
+  }
 });
+
