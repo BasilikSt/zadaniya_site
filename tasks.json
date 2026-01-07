@@ -2,16 +2,16 @@
   "tasks": [
     {
       "subject": "Логистика",
-      "title": "Лабораторная работа №1",
-      "files": [
-        { "name": "Методичка", "url": "files/logistics_guide.pdf" },
-        { "name": "Бланк отчёта", "url": "files/logistics_report.docx" }
-      ]
+      "title": "Повторение материала",
+      "link": "https://disk.yandex.ru/d/_ZQ7Q6XRzQOLyQ"
     },
     {
-      "subject": "Логистика",
-      "title": "Подготовка к тесту",
-      "link": "https://disk.yandex.ru/d/xxxxx"
+      "subject": "Cтатистика",
+      "title": "Подготовка к контрольной",
+      "files": [
+        { "name": "Презентация", "url": "files/stat_task.pdf" },
+        { "name": "", "url": "files/sd.fd" }
+      ]
     },
     {
       "subject": "Статистика",
