@@ -1,30 +1,18 @@
 backend:
-  name: github
-  repo: basilikst/zadaniya_site
+  name: git-gateway
   branch: main
 
-media_folder: "files"
-public_folder: "/zadaniya_site/files"
+media_folder: "uploads"
+public_folder: "/uploads"
 
 collections:
   - name: "tasks"
     label: "Задания"
-    files:
-      - label: "Список заданий"
-        name: "tasks"
-        file: "tasks.json"
-        fields:
-          - label: "Задания"
-            name: "tasks"
-            widget: "list"
-            fields:
-              - label: "Дата"
-                name: "date"
-                widget: "datetime"
-                format: "YYYY-MM-DD"
-              - label: "Название задания"
-                name: "title"
-                widget: "string"
-              - label: "Файл"
-                name: "file"
-                widget: "file"
+    folder: "tasks"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Название", name: "title", widget: "string" }
+      - { label: "Дата сдачи", name: "due", widget: "datetime" }
+      - { label: "Описание", name: "body", widget: "markdown" }
+      - { label: "Файл", name: "file", widget: "file", required: false }
