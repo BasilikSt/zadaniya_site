@@ -168,4 +168,18 @@ body.dark .task-date {
   color: #c7d2fe;
 }
 
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task-actions a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+}
 
