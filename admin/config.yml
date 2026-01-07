@@ -1,18 +1,13 @@
-backend:
-  name: git-gateway
-  branch: main
-
-media_folder: "files"
-public_folder: "/files"
-
 collections:
   - name: "tasks"
     label: "Задания"
-    folder: "tasks"
-    create: true
+    file: "tasks.json"
     format: "json"
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: "Дата", name: "date", widget: "string" }
-      - { label: "Название", name: "title", widget: "string" }
-      - { label: "Файл", name: "file", widget: "file", required: false }
+      - label: "Задания"
+        name: "tasks"
+        widget: "list"
+        fields:
+          - { label: "Дата", name: "date", widget: "string" }
+          - { label: "Название", name: "title", widget: "string" }
+          - { label: "Файл", name: "file", widget: "file", required: false }
