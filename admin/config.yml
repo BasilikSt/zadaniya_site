@@ -8,13 +8,11 @@ public_folder: "/files"
 collections:
   - name: "tasks"
     label: "Задания"
-    file: "tasks.json"
+    folder: "tasks"
+    create: true
     format: "json"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - label: "Задания"
-        name: "tasks"
-        widget: "list"
-        fields:
-          - { label: "Дата", name: "date", widget: "string" }
-          - { label: "Название", name: "title", widget: "string" }
-          - { label: "Файл", name: "file", widget: "file", required: false }
+      - { label: "Дата", name: "date", widget: "string" }
+      - { label: "Название", name: "title", widget: "string" }
+      - { label: "Файл", name: "file", widget: "file", required: false }
