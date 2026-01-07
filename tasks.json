@@ -1,16 +1,24 @@
 {
   "tasks": [
     {
-      "title": "Повторение материала",
-      "link": "https://disk.yandex.ru/d/_ZQ7Q6XRzQOLyQ"
+      "subject": "Логистика",
+      "title": "Лабораторная работа №1",
+      "files": [
+        { "name": "Методичка", "url": "files/logistics_guide.pdf" },
+        { "name": "Бланк отчёта", "url": "files/logistics_report.docx" }
+      ]
     },
     {
-      "title": "Практическая работа",
-      "file": "files/lab2.docx",
-      "link": "https://lol.com"
+      "subject": "Логистика",
+      "title": "Подготовка к тесту",
+      "link": "https://disk.yandex.ru/d/xxxxx"
     },
     {
-      "title": "Подготовиться к контрольной работе"
+      "subject": "Статистика",
+      "title": "Практическое задание",
+      "files": [
+        { "name": "Задание", "url": "files/stat_task.pdf" }
+      ]
     }
   ]
 }
