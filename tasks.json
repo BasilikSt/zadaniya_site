@@ -1,3 +1,9 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "date": "2026-01-10",
+      "title": "Пример задания",
+      "file": "files/example.pdf"
+    }
+  ]
 }
