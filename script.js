@@ -1,23 +1,50 @@
-fetch('tasks.json')
-  .then(response => response.json())
-  .then(data => {
-    const container = document.getElementById('tasks');
-    container.innerHTML = '';
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("tasks");
 
-    const tasks = data.tasks || data;
+  if (!container) {
+    console.error("Контейнер #tasks не найден");
+    return;
+  }
 
-    tasks.sort((a, b) => new Date(a.date) - new Date(b.date));
+  fetch("tasks.json")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Не удалось загрузить tasks.json");
+      }
+      return response.json();
+    })
+    .then(data => {
+      container.innerHTML = "";
 
-    tasks.forEach(task => {
-      const div = document.createElement('div');
-      div.className = 'task';
+      const tasks = data.tasks || data;
 
-      div.innerHTML = `
-        <div class="task-date">${task.date}</div>
-        <div class="task-title">${task.title}</div>
-        <a href="${task.file}" download>Скачать</a>
-      `;
+      if (!Array.isArray(tasks)) {
+        console.error("tasks.json имеет неверный формат");
+        return;
+      }
 
-      container.appendChild(div);
+      tasks
+        .sort((a, b) => new Date(a.date) - new Date(b.date))
+        .forEach(task => {
+          const div = document.createElement("div");
+          div.className = "task";
+
+          div.innerHTML = `
+            <div class="task-date">${task.date ?? ""}</div>
+            <div class="task-title">${task.title ?? "Без названия"}</div>
+            ${
+              task.file
+                ? `<a href="${task.file}" download>Скачать файл</a>`
+                : ""
+            }
+          `;
+
+          container.appendChild(div);
+        });
+    })
+    .catch(err => {
+      console.error(err);
+      container.innerHTML =
+        "<p style='opacity:0.6'>Задания временно недоступны</p>";
     });
-  });
+});
