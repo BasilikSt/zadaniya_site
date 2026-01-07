@@ -18,6 +18,13 @@ collections:
             name: "tasks"
             widget: "list"
             fields:
-              - { label: "Дата", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-              - { label: "Название задания", name: "title", widget: "string" }
-              - { label: "Файл", name: "file", widget: "file" }
+              - label: "Дата"
+                name: "date"
+                widget: "datetime"
+                format: "YYYY-MM-DD"
+              - label: "Название задания"
+                name: "title"
+                widget: "string"
+              - label: "Файл"
+                name: "file"
+                widget: "file"
