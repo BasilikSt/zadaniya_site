@@ -3,21 +3,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("toggle-actual");
   const themeBtn = document.getElementById("theme-toggle");
 
-  if (!container || !toggleBtn) return;
-
   let showOnlyActual = false;
   let allTasks = [];
 
-  const today = new Date().setHours(0, 0, 0, 0);
+  const today = new Date().setHours(0,0,0,0);
 
   function render() {
     container.innerHTML = "";
 
-    const tasksToShow = showOnlyActual
+    const list = showOnlyActual
       ? allTasks.filter(t => new Date(t.date) >= today)
       : allTasks;
 
-    tasksToShow.forEach((task, i) => {
+    list.forEach((task, i) => {
       const div = document.createElement("div");
       div.className = "task";
       div.style.animationDelay = `${i * 0.05}s`;
@@ -34,19 +32,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   toggleBtn.addEventListener("click", () => {
     showOnlyActual = !showOnlyActual;
+    toggleBtn.classList.toggle("active", showOnlyActual);
     toggleBtn.textContent = showOnlyActual
       ? "Показать все задания"
       : "Показать только актуальные";
     render();
   });
 
-  if (themeBtn) {
-    themeBtn.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      themeBtn.textContent =
-        document.body.classList.contains("dark") ? "☀️" : "🌙";
-    });
-  }
+  themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    themeBtn.textContent =
+      document.body.classList.contains("dark") ? "☀️" : "🌙";
+  });
 
   fetch("tasks.json")
     .then(r => r.json())
@@ -57,6 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
       render();
     })
     .catch(() => {
-      container.innerHTML = "<p>Пока заданий нет</p>";
+      container.innerHTML = "<p>Заданий пока нет</p>";
     });
 });
