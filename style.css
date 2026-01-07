@@ -11,6 +11,24 @@ body {
   color: #1f2937;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #1f2933;
+  --muted: #6b7280;
+  --accent: #6366f1;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 40px 20px;
+}
+
 /* Заголовок */
 h1 {
   max-width: 900px;
@@ -120,4 +138,83 @@ h1 {
   color: rgba(0, 0, 0, 0.35);
   user-select: none;
   pointer-events: none;
+}
+
+/* Карточки заданий */
+
+.task {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  animation: fadeUp 0.4s ease forwards;
+  opacity: 0;
+}
+
+.task-date {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.task-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.task a {
+  font-size: 14px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.task a:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Кнопка фильтра */
+.filter-btn {
+  background: transparent;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  padding: 8px 14px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filter-btn:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+/* теманя тема */
+
+body.dark {
+  --bg: #0f172a;
+  --card: #111827;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+}
+
+
+
+.credit {
+  position: fixed;
+  right: 12px;
+  bottom: 10px;
+  font-size: 11px;
+  opacity: 0.4;
 }
