@@ -50,3 +50,11 @@ document.addEventListener("DOMContentLoaded", () => {
       container.innerHTML = "<p>Пока заданий нет</p>";
     });
 });
+
+const themeBtn = document.getElementById("theme-toggle");
+
+themeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  themeBtn.textContent =
+    document.body.classList.contains("dark") ? "☀️" : "🌙";
+});
