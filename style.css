@@ -100,9 +100,17 @@ h1 {
   font-weight: 600;
   padding: 6px 10px;
   border-radius: 10px;
-  background: #eef2ff;
   text-align: center;
+
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--accent);
 }
+
+body.dark .task-date {
+  background: rgba(99, 102, 241, 0.2);
+  color: #c7d2fe;
+}
+
 
 .task-title {
   font-size: 16px;
