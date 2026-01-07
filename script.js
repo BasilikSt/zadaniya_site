@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!container) return;
 
   fetch("tasks.json")
-    .then(res => res.json())
+    .then(r => r.json())
     .then(data => {
       const tasks = data.tasks || [];
       container.innerHTML = "";
@@ -17,15 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
           div.innerHTML = `
             <div class="task-date">${task.date}</div>
             <div class="task-title">${task.title}</div>
-            ${task.file ? `<a href="${task.file}" download>Скачать</a>` : ""}
+            ${task.file ? `<a href="${task.file}" download>Скачать файл</a>` : ""}
           `;
 
           container.appendChild(div);
         });
     })
     .catch(() => {
-      container.innerHTML = "<p>Заданий пока нет</p>";
+      container.innerHTML = "<p>Пока заданий нет</p>";
     });
 });
-
-
